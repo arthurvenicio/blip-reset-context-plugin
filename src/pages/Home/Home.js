@@ -1,71 +1,38 @@
-import React, { useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
-import RoutesPath from '../../constants/routes-path';
+/* eslint-disable react/jsx-no-bind */
+import React,{ useState } from 'react';
+import { GrTrash } from 'react-icons/gr';
+import {Header} from './components/Header/index';
+import {Input} from './components/Input';
+import * as S from './style.module';
 
-import settings from '../../config';
 
-import logo from '../../assets/images/svg/blip-balloon.svg';
-import Header from './components/Header';
-
-const PAGE_ICON = 'plugin';
-const BLANK = '_blank';
 
 const Home = () => {
-    const history = useHistory();
-    const { t } = useTranslation();
+    const [data, setData] = useState({});
 
-    const handleNavigation = useCallback(
-        (path, params = {}) => {
-            history.push(path, params);
-        },
-        [history]
-    );
+    function onChange(ev){
+        const {name, value} = ev.target;
+        const newData = {...data, [name]: value};
+        setData(newData);
+    }
 
+    function onSubmit(ev){
+        ev.preventDefault();
+        if(window.confirm("Deseja mesmo realizar isso?")){
+            alert(`O numero ${data.phoneNumber} foi resetado com sucesso!`);
+        }
+    }
     return (
         <div className="ph1 ph4-m ph5-ns pb5">
-            <Header
-                title={t('title.homePage')}
-                icon={PAGE_ICON}
-                onClick={() => window.open(settings.repositoryUrl, BLANK)}
-            />
-            <div className="flex flex-column items-center justify-center bp-c-neutral-dark-city f5 h-100 mt4">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p className="tc">
-                    {t('paragraph.homeDescription.part1')}
-                    <br />
-                    <Trans i18nKey="paragraph.homeDescription.part2">
-                        Edit <code>src/pages/Home.js</code> and save to reload.
-                    </Trans>
-                </p>
-                <h5 className="f5 b mt3 mb2">{t('title.exemples')}</h5>
-                <span
-                    className="f6 flex items-center blue no-underline underline-hover pointer"
-                    data-testid="exemple-one"
-                    aria-hidden="true"
-                    onClick={() =>
-                        handleNavigation(RoutesPath.EXAMPLE_PAGE.PATH, {
-                            type: 'storedData'
-                        })
-                    }
-                >
-                    <bds-icon name="file-txt-1" size="x-small" />
-                    {t('link.blipDataExample')}
-                </span>
-                <span
-                    className="f6 flex items-center blue no-underline underline-hover mt1 pointer"
-                    data-testid="exemple-two"
-                    aria-hidden="true"
-                    onClick={() =>
-                        handleNavigation(RoutesPath.EXAMPLE_PAGE.PATH, {
-                            type: 'swrCall'
-                        })
-                    }
-                >
-                    <bds-icon name="file-txt-1" size="x-small" />
-                    {t('link.swrExemple')}
-                </span>
-            </div>
+            <S.Container>
+                <Header />
+                <S.Box>
+                    <form onSubmit={onSubmit}>
+                        <Input type="text" name="phoneNumber" onChange={onChange}/> 
+                        <button type="submit"><GrTrash className="icon"/>Resetar</button>
+                    </form>
+                </S.Box>
+            </S.Container>
         </div>
     );
 };
