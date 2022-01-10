@@ -33,6 +33,10 @@ export const Box = styled.div`
             font-weight: 600;
             width: 15rem;
             padding: 0.5rem;
+
+            &:focus{
+                color: #b1b1b1;
+            }
         }
 
         display: flex;
@@ -67,3 +71,4 @@ export const Box = styled.div`
     }
 
 `;
+

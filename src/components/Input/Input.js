@@ -22,7 +22,7 @@ const Input = ({
     touched = {},
     onFocus,
     onBlur,
-    onChange
+    onChange = () => {}
 }) => {
     const blipInputRef = useRef(null);
     const [error, setError] = useState('');
