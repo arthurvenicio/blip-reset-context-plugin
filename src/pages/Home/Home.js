@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
-// import { useTranslation } from 'react-i18next';
 import { Header } from './components/Header/index';
 import * as S from './style.module';
 import { InputNumber } from './components/BlipInput';
@@ -55,7 +53,7 @@ const Home = () => {
                         <InputNumber
                             label="Numero de telefone"
                             value="+55"
-                            onCountryChange={onChangeI}
+                            onCountryChange={(ev) => onChangeI(ev)}
                             requiredErrorMessage="Esse campo não pode ficar vazio"
                             required
                         />
