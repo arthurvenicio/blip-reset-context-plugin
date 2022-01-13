@@ -23,15 +23,10 @@ const showToast = (toast) =>
         content: toast
     });
 
-const showModal = (title, body, confirm = 'ok', cancel = 'cancel') =>
+const showModal = (modal) =>
     IframeMessageProxy.sendMessage({
         action: IMPContainer.Actions.SHOW_MODAL,
-        content: {
-            title,
-            body,
-            confirm,
-            cancel
-        }
+        content: modal
     });
 
 const withLoadingAsync = async (func) => {

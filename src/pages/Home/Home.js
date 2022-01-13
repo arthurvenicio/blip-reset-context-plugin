@@ -1,17 +1,32 @@
 import React, { useState } from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { Header } from './components/Header/index';
-import * as S from './style.module';
 import { InputNumber } from './components/BlipInput';
+import {
+    startLoading,
+    stopLoading,
+    showToast,
+    showModal
+} from '../../services/common-service';
+
+import * as S from './style.module';
+import { resetUser } from '../../services/application-service';
 
 const Home = () => {
-    const [data, setData] = useState({});
+    const initValue = {
+        phoneNumber: '',
+        text: '',
+        indenty: '',
+        code: '+55'
+    };
+    const [data, setData] = useState(initValue);
 
     function onChangeI(ev) {
         const { value, code } = ev.detail;
         const name = 'indenty';
         const name2 = 'phoneNumber';
-        const valueF = `${code}${value}@wa.gw.msging.net`;
+        const codeF = code.replace(/\D/g, '');
+        const valueF = `${codeF}${value}@wa.gw.msging.net`;
         const valueF2 = `+55${value}`;
         const newDate = {
             ...data,
@@ -25,22 +40,52 @@ const Home = () => {
     function validateForm() {
         if (
             Object.keys(data).length === 0 ||
-            data.indenty === `${data.code}@wa.gw.msging.net`
+            data.indenty === `${data.code}@wa.gw.msging.net` ||
+            data.indenty === ''
         ) {
             return false;
         }
         return true;
     }
 
-    function onSubmit(ev) {
+    async function onSubmit(ev) {
         ev.preventDefault();
         const result = validateForm();
+
         if (result) {
-            if (window.confirm('Deseja mesmo realizar isso?')) {
-                alert(`O numero ${data.phoneNumber} foi resetado com sucesso!`);
+            const { response } = await showModal({
+                title: 'Deseja realizar essa ação?',
+                body: `Resetar o numero ${data.phoneNumber}`,
+                confirm: 'Confirmar ',
+                cancel: 'Cancelar'
+            });
+            if (response) {
+                startLoading();
+                try {
+                    await resetUser(data.indenty);
+                    stopLoading();
+                    showToast({
+                        type: 'success',
+                        message: `O numero ${data.phoneNumber} foi resetado!`
+                    });
+                    window.location.reload();
+                } catch (e) {
+                    stopLoading();
+                    showToast({
+                        type: 'danger',
+                        title: 'Ocorreu um erro durante a operação',
+                        message: `O numero ${data.phoneNumber} não foi encontrado`
+                    });
+                }
             }
+
+            // showToast({
+            //     type: 'warning',
+            //     title: 'Ocorreu um erro durante a operação',
+            //     message: `Estamos com instabilidade no sistema.`
+            // });
         } else {
-            console.error('Field is invalid!');
+            // console.error('Field is invalid!');
         }
     }
 

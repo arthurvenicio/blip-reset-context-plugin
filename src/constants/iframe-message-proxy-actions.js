@@ -9,6 +9,8 @@ class IframeMessageProxyActions {
 
     static SHOW_MODAL = 'showModal';
 
+    static SHOW_ALERT = 'showAlert';
+
     static HIDE_NAVBAR = 'hideNavbar';
 
     static SHOW_NAVBAR = 'showNavbar';
