@@ -1,4 +1,4 @@
-# Default values for pluginresetuser.
+# Default values for blip-plugin-reset-user.
 # Declare variables to be passed into your templates.
 fullnameOverride: blip-plugin-reset-user
 replicaCount: 1
