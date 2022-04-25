@@ -104,7 +104,8 @@ const Home = () => {
                         Plugin criado por{' '}
                         <a
                             href="https://take.workplace.com/profile.php?id=100074521764456"
-                            disa
+                            target="_blank"
+                            rel="noreferrer"
                         >
                             Arthur Venício
                         </a>
