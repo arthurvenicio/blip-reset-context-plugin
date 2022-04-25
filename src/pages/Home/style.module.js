@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-
-export const Container = styled.div`    
+export const Container = styled.div`
     /* background: #FFFFFF; */
-    font-family: "Nunito Sans","Tahoma","Helvetica","Arial",sans-serif;
+    font-family: 'Nunito Sans', 'Tahoma', 'Helvetica', 'Arial', sans-serif;
     font-weight: 700;
 
     display: flex;
@@ -23,18 +22,17 @@ export const Box = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1rem;
-
-    form{
+    form {
         input {
             background: transparent;
             border: 1px solid #ddd;
-            border-radius: 0.2rem ;
-            font-family: "Nunito Sans", sans-serif;
+            border-radius: 0.2rem;
+            font-family: 'Nunito Sans', sans-serif;
             font-weight: 600;
             width: 15rem;
             padding: 0.5rem;
 
-            &:focus{
+            &:focus {
                 color: #b1b1b1;
             }
         }
@@ -44,31 +42,40 @@ export const Box = styled.div`
         align-items: center;
         gap: 1rem;
 
-        button{
+        button {
             width: 40%;
             padding: 0.7rem;
             border: none;
             border-radius: 0.5rem;
-            font-family: "Nunito Sans", sans-serif;
+            font-family: 'Nunito Sans', sans-serif;
             font-weight: 700;
             color: #fff;
-            
+
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 0.14rem;
 
-            background-color: #245AD5;
+            background-color: #245ad5;
 
-            &:hover{
+            &:hover {
                 cursor: pointer;
             }
 
-            .icon{
+            .icon {
                 color: #fff;
             }
         }
     }
-
 `;
 
+export const Author = styled.p`
+    font-family: Roboto, sans-serif;
+    font-size: 0.6rem;
+    color: #ddd;
+
+    a {
+        text-decoration: none;
+        color: #ddd;
+    }
+`;
