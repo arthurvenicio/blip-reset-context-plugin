@@ -1,6 +1,9 @@
 {
-  "name": "pluginresetuser",
+  "name": "blip-plugin-reset-user",
   "version": "0.1.0",
+  "author": {
+    "name": "Arthur Venicio Ferreira de Souza"
+  },
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
@@ -32,16 +35,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "jest --coverage",
     "eject": "react-scripts eject",
     "config:plugin": "cross-env REACT_APP_NAME=$npm_package_name node src/config/scripts/plugin-config.js",
     "test:watch": "yarn test -- --watch",
-    "test:coverage": "jest --coverage",
-    "test:clear": "jest --clearCache",
-    "test:all": "set CI=true && yarn test && npm run lint",
-    "format": "prettier --write \"src/**/*.{js,jsx,json,md}\"",
-    "lint": "eslint src/**/*.{js,jsx,ts,tsx}",
-    "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix"
+    "test:clear": "jest --clearCache"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -56,34 +54,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!**/node_modules/**"
-    ],
-    "coverageDirectory": "<rootDir>/coverage/",
-    "testResultsProcessor": "jest-sonar-reporter",
-    "testEnvironment": "jsdom",
-    "testTimeout": 30000,
-    "transform": {
-      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
-      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/src/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!blip-ds)",
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/src/App.js",
-      "<rootDir>/src/index.js",
-      "<rootDir>/src/config/",
-      "<rootDir>/src/constants/",
-      "<rootDir>/src/translate/",
-      "<rootDir>/src/routes/"
     ]
   },
   "babel": {
@@ -133,6 +103,7 @@
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.4",
+    "jest-config": "^27.5.1",
     "jest-mock-axios": "^4.5.0",
     "jest-sonar-reporter": "^2.0.0",
     "prettier": "^2.5.1"

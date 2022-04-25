@@ -59,6 +59,7 @@ const Home = () => {
                 confirm: 'Confirmar ',
                 cancel: 'Cancelar'
             });
+
             if (response) {
                 startLoading();
                 try {
@@ -72,20 +73,12 @@ const Home = () => {
                 } catch (e) {
                     stopLoading();
                     showToast({
-                        type: 'danger',
+                        type: 'warning',
                         title: 'Ocorreu um erro durante a operação',
                         message: `O numero ${data.phoneNumber} não foi encontrado`
                     });
                 }
             }
-
-            // showToast({
-            //     type: 'warning',
-            //     title: 'Ocorreu um erro durante a operação',
-            //     message: `Estamos com instabilidade no sistema.`
-            // });
-        } else {
-            // console.error('Field is invalid!');
         }
     }
 
@@ -107,6 +100,12 @@ const Home = () => {
                             Resetar
                         </button>
                     </form>
+                    <S.Author>
+                        Plugin criado por{' '}
+                        <a href="mailto: arthur.souza.tc@take.net">
+                            Arthur Venício
+                        </a>
+                    </S.Author>
                 </S.Box>
             </S.Container>
         </div>
