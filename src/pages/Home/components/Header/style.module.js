@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
     width: 94%;
-    height: 8rem;
+    height: 3.446rem;
 
     padding: 3rem;
     border-bottom: 1px solid black;
