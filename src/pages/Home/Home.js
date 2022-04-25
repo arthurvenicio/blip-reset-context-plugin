@@ -102,7 +102,10 @@ const Home = () => {
                     </form>
                     <S.Author>
                         Plugin criado por{' '}
-                        <a href="mailto: arthur.souza.tc@take.net">
+                        <a
+                            href="https://take.workplace.com/profile.php?id=100074521764456"
+                            disa
+                        >
                             Arthur Venício
                         </a>
                     </S.Author>
