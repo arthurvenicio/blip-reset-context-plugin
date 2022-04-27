@@ -5,20 +5,24 @@ import { InputNumber } from './components/BlipInput';
 import {
     startLoading,
     stopLoading,
-    showToast,
     showModal
 } from '../../services/common-service';
+
+import { showToast } from '../../utils/showToast';
 
 import * as S from './style.module';
 import { resetUser } from '../../services/application-service';
 
+const MIN_INPUT_LENGTH_BR = 12;
+const MAX_INPUT_LENGTH_BR = 15;
+const initValue = {
+    phoneNumber: '',
+    text: '',
+    indenty: '',
+    code: '+55'
+};
+
 const Home = () => {
-    const initValue = {
-        phoneNumber: '',
-        text: '',
-        indenty: '',
-        code: '+55'
-    };
     const [data, setData] = useState(initValue);
 
     function onChangeI(ev) {
@@ -45,13 +49,35 @@ const Home = () => {
         ) {
             return false;
         }
+
+        switch (data.code) {
+            case '+55':
+                if (
+                    data.phoneNumber.length <= MIN_INPUT_LENGTH_BR ||
+                    data.phoneNumber.length >= MAX_INPUT_LENGTH_BR
+                ) {
+                    showToast(
+                        'danger',
+                        'O numero não é valido',
+                        `A quantidade de numero não é valido!`
+                    );
+                    return false;
+                }
+                break;
+            default:
+                break;
+        }
+
         return true;
     }
 
     async function onSubmit(ev) {
         ev.preventDefault();
         const result = validateForm();
+        await sendRequest(result);
+    }
 
+    async function sendRequest(result) {
         if (result) {
             const { response } = await showModal({
                 title: 'Deseja realizar essa ação?',
@@ -65,20 +91,27 @@ const Home = () => {
                 try {
                     await resetUser(data.indenty);
                     stopLoading();
-                    showToast({
-                        type: 'success',
-                        message: `O numero ${data.phoneNumber} foi resetado!`
-                    });
-                    window.location.reload();
+                    showToast(
+                        'success',
+                        null,
+                        `O numero ${data.phoneNumber} foi resetado!`
+                    );
+                    // window.location.reload();
                 } catch (e) {
                     stopLoading();
-                    showToast({
-                        type: 'warning',
-                        title: 'Ocorreu um erro durante a operação',
-                        message: `O numero ${data.phoneNumber} não foi encontrado`
-                    });
+                    showToast(
+                        'warning',
+                        'Ocorreu um erro durante a operação',
+                        `O numero ${data.phoneNumber} não foi encontrado`
+                    );
                 }
             }
+        } else if (result !== false) {
+            showToast(
+                'danger',
+                'Ocorreu um erro durante a operação',
+                `Um erro inesperado aconteceu - 500`
+            );
         }
     }
 
@@ -103,7 +136,7 @@ const Home = () => {
                     <S.Author>
                         Plugin criado por{' '}
                         <a
-                            href="https://take.workplace.com/profile.php?id=100074521764456"
+                            href="mailto:arthur.souze.tc@take.net"
                             target="_blank"
                             rel="noreferrer"
                         >
